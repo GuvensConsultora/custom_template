@@ -1,0 +1,61 @@
+<!-- DETALLE EN TABLA -->
+            <table class="table table-sm table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th>Descripción</th>
+                  <th class="text-end">Cantidad</th>
+                  <th class="text-end">Precio Unitario</th>
+                  <th class="text-end">Impuestos</th>
+                  <th class="text-end">Importe</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="o.order_line" t-as="line">
+                  <tr>
+                    <td><t t-esc="line.name"/></td>
+                    <td class="text-end"><t t-esc="line.product_uom_qty"/></td>
+                    <!--<td class="text-end"><t t-esc="format_amount(line.price_unit, o.currency_id)"/></td>-->
+                    <td class="text-end">
+                      <t t-esc="', '.join([('%s%%' % tax.amount) for tax in line.tax_id if tax.amount])"/>
+                    </td>
+                    <td class="text-end"><t t-esc="format_amount(line.price_subtotal, o.currency_id)"/></td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+
+            <!-- TOTALES -->
+            <div class="row mt-4">
+              <div class="col-6">
+                <!-- Condiciones comerciales -->
+                <p><strong>Condiciones:</strong></p>
+                <ul>
+                  <li>Los productos cortados no tienen devolución</li>
+                  <li>El plazo máximo de pago es de 15 días</li>
+                  <li>En caso de retraso, se aplicará interés por mora</li>
+                </ul>
+              </div>
+              <div class="col-6">
+                <table class="table table-sm">
+                  <tr>
+                    <td><strong>Subtotal:</strong></td>
+                    <td class="text-end"><t t-esc="format_amount(o.amount_untaxed, o.currency_id)"/></td>
+                  </tr>
+                  <tr>
+                    <td><strong>IVA:</strong></td>
+                    <td class="text-end"><t t-esc="format_amount(o.amount_tax, o.currency_id)"/></td>
+                  </tr>
+                  <tr class="fw-bold">
+                    <td><strong>Total:</strong></td>
+                    <td class="text-end"><t t-esc="format_amount(o.amount_total, o.currency_id)"/></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- PIE DE PÁGINA -->
+            <div class="text-center mt-4 text-muted small">
+              Electricidad e Iluminación – Grupofas S.A.<br/>
+              Av. Balloffet 2580 – San Rafael – Argentina<br/>
+              sierraelectricidad.com.ar
+            </div>
