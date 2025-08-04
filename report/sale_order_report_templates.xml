@@ -163,6 +163,7 @@
               </tbody>
             </table>
 	    </div>
+	    <!-- PIE DEL PRESUPUESTO. -->
             <div class="clearfix" name="so_total_summary">
               <div id="total" class="row" name="total">
                 <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
@@ -174,6 +175,44 @@
                 </div>
               </div>
             </div>
+	    <!-- TERMINOS DE PAGO.... -->
+	    <div><strong/><t t-if="doc.x_studio_1_valor">
+            <strong><font style="color: rgb(57, 123, 33);">Forma de pago:</font></strong> Cheques a <span t-field="doc.x_studio_1_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_2_valor">
+            <span t-field="doc.x_studio_2_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_3_valor">
+            <span t-field="doc.x_studio_3_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_4_valor">
+            <span t-field="doc.x_studio_4_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_5_valor">
+            <span t-field="doc.x_studio_5_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_6_valor">
+            <span t-field="doc.x_studio_6_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_7_valor">
+            <span t-field="doc.x_studio_7_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_8_valor">
+            <span t-field="doc.x_studio_8_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_9_valor">
+            <span t-field="doc.x_studio_9_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_10_valor">
+            <span t-field="doc.x_studio_10_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_11_valor">
+            <span t-field="doc.x_studio_11_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+          <t t-if="doc.x_studio_12_valor">
+            <span t-field="doc.x_studio_12_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
+          </t>
+            <t t-if="doc.x_studio_1_valor">días de Fecha Factura.</t></div> 
             <div class="oe_structure"/>
 	  </div>
        </t>
