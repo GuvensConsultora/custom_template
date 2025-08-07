@@ -3,6 +3,13 @@
 <odoo>
   <template id="report_saleorder_document_custom" inherit_id="sale.report_saleorder_document">
     <!-- Reemplazamos el bloque completo de direcciones -->
+    <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+      <t t-set="o" t-value="doc"/>
+      <t t-set="company" t-value="o.company_id"/>
+      <t t-call="custom_template.external_layout_header_custom"/>
+    </xpath>
+    
+    
     <xpath expr="//t[@t-set='address']" position="replace"/>
  
     <xpath expr="//div[@class='page']" position="replace">
@@ -13,7 +20,13 @@
             <!-- ENCABEZADO CLIENTE -->
             <div class="row mb-2">
               <div class="col-6">
-		<h4><t t-esc="doc.partner_id.name"/></h4>
+		<t t-if="doc.partner_id.parent_id">
+		  <h3><t t-esc="doc.partner_id.parent_id.name"/></h3>
+		  <h5><t t-esc="doc.partner_id.name"/></h5>
+		</t>
+		<t t-else="">
+		  <h3><t t-esc="doc.partner_id.name"/></h3>
+		</t>
 		<t t-if="doc.partner_id.street">
 		  <strong>Dirección:</strong> <t t-esc="doc.partner_id.street"/>
 		  <t t-if="doc.partner_id.street2">, <t t-esc="doc.partner_id.street2"/></t>
@@ -54,7 +67,9 @@
 
 	      <div class="col-6 text-end border-start  ps-3 ">
 		<h3 style="text-align: center; border:none;">Cotización: <t t-esc="o.name"/></h3>
+		<h5 style="text-align: center; border:none;"><t t-esc="o.client_order_ref"/></h5>
 	      </div>
+	   
 	    </div>
             <div style="border: 1px solid black; border-radius: 10px; overflow: hidden; padding: 0; margin-bottom: 10px;">
 
@@ -93,9 +108,9 @@
                   <th name="th_description" class="text-start">Detalle</th>
                   <th name="th_quantity" class="text-end">Cant.</th>
                   <th name="th_priceunit" class="text-end">Precio</th>
-                  <th name="th_discount" t-if="display_discount" class="text-end">
+                  <!--<th name="th_discount" t-if="display_discount" class="text-end">
                     <span>% Desc.</span>
-                  </th>
+                  </th>-->
                   <th name="th_subtotal" class="text-end">
                     <span>Total</span>
                   </th>
@@ -115,7 +130,14 @@
 		    <t t-if="not line.display_type">
 		      <td t-esc="index"/>
 		      <t t-set="index" t-value="index + 1"/>
-                      <td name="td_name"><span t-field="line.name">Bacon Burger</span></td>
+                      <td name="td_name"><span t-field="line.name">Bacon Burger</span><br/>
+		      <span t-if="line.x_studio_plazo_de_entrega">
+			<span style="font-style: italic; font-weight: bold; font-size: 11px;">
+			  Entrega:
+			</span>
+			<span t-field="line.x_studio_plazo_de_entrega" style="font-style: italic; font-weight: bold; font-size: 11px;"/>
+		      </span>
+		      </td>
                       <td name="td_quantity" class="text-end">
                         <span t-field="line.product_uom_qty">3</span>
                         <!--<span t-field="line.product_uom">units</span>-->
@@ -124,11 +146,11 @@
                         </span>
                       </td>
                       <td name="td_priceunit" class="text-end">
-                        <span t-field="line.price_unit">3</span>
+                        <span t-field="line.currency_id.symbol"/> - <span t-field="line.price_unit" >3</span>
                       </td>
-                      <td t-if="display_discount" class="text-end">
+                      <!--<td t-if="display_discount" class="text-end">
                         <span t-field="line.discount">-</span>
-                      </td>
+                      </td>-->
                       <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
                         <span t-field="line.price_subtotal">27.00</span>
                       </td>

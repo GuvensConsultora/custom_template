@@ -29,3 +29,10 @@ class SaleOrder(models.Model):
     x_studio_11_valor = fields.Integer(string='11° Valor')
     x_studio_12_cobro = fields.Float(string='12° Cobro')
     x_studio_12_valor = fields.Integer(string='12° Valor')
+   
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order.line'
+
+    x_studio_plazo_de_entrega = fields.Char(string='Plazo de entrega')
