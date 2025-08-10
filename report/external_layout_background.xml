@@ -1,0 +1,31 @@
+<odoo>
+  <template id="report_layout_watermark" inherit_id="web.report_layout">
+    
+    <!-- Insertamos la capa de marca de agua justo dentro del body del reporte -->
+    <xpath expr="//body" position="inside">
+      <div class="wm-fullpage"></div>
+    </xpath>
+
+    <!-- Agregamos los estilos para la marca de agua -->
+    <xpath expr="//head" position="inside">
+      <style type="text/css">
+        .wm-fullpage {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        opacity: 0.08;
+        background: url('/custom_template/static/src/img/sello_de_agua.png') no-repeat center center;
+        background-size: 65%;
+        pointer-events: none;
+        }
+        .o_report_layout, .page {
+        position: relative;
+        z-index: 1;
+        }
+      </style>
+    </xpath>
+
+  </template>
+</odoo>
+
+

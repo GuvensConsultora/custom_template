@@ -1,0 +1,8 @@
+/* Marca de agua centrada en cada página del reporte */
+.page.watermark-bg {
+    background-image: url('/custom_template/static/src/img/sello_de_agua.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 55%; /* Ajustar tamaño */
+    opacity: 0.12; /* Transparencia */
+}

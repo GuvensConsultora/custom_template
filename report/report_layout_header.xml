@@ -13,6 +13,9 @@
           </div>
         </div>
       </xpath>
-    </template>
+      <div>
+	<img src="/custom_template/static/src/img/sello_de_agua.png"  style="position:fixed; top:100%; left:20%; transform:translate(100%,150%); opacity:.12; z-index:0; pointer-events:none; overflow:visible;"/>
+      </div>
+	</template>
   </data>
 </odoo>

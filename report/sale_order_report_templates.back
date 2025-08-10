@@ -2,22 +2,25 @@
 
 <odoo>
   <template id="report_saleorder_document_custom" inherit_id="sale.report_saleorder_document">
-
+    
     <!-- Reemplazamos el bloque completo de direcciones -->
     <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
-      
       <t t-set="o" t-value="doc"/>
       <t t-set="company" t-value="o.company_id"/>
       <t t-call="custom_template.external_layout_header_custom"/>
     </xpath>
     
-    <xpath expr="//t[@t-set='address']" position="replace"/>
-    <xpath expr="//div[@class='page']" position="replace">
     
+    <xpath expr="//t[@t-set='address']" position="replace"/>
  
+    <xpath expr="//div[@class='page']" position="replace">
       <t t-call="web.html_container">
-          <t t-foreach="docs" t-as="o">
-            <!-- ENCABEZADO CLIENTE -->
+
+	
+
+	<t t-foreach="docs" t-as="o">
+
+	    <!-- ENCABEZADO CLIENTE -->
             <div class="row mb-2">
               <div class="col-6">
 		<t t-if="doc.partner_id.parent_id">
@@ -69,7 +72,7 @@
 		<h3 style="text-align: center; border:none;">Cotización: <t t-esc="o.name"/></h3>
 		<h5 style="text-align: center; border:none;"><t t-esc="o.client_order_ref"/></h5>
 	      </div>
-	      
+	   
 	    </div>
             <div style="border: 1px solid black; border-radius: 10px; overflow: hidden; padding: 0; margin-bottom: 10px;">
 
@@ -98,92 +101,92 @@
 	    <div class="oe_structure"/>
 	    
             <div style="border: 1px solid black; border-radius: 10px; overflow: hidden; padding: 0; margin-bottom: 10px;">
-	      <t t-set="lines_to_report" t-value="o._get_order_lines_to_report()"/>
-              <t t-set="display_discount" t-value="any(l.discount for l in lines_to_report)"/>
-              <table class="table  border-collapse: collapse; ">
-		<!-- TABLA DE PRODUCTOS -->
-		<thead style="display: table-row-group">
-                  <tr>
-		    <th name="th_description" class="text-start">Nro.</th>
-                    <th name="th_description" class="text-start">Detalle</th>
-                    <th name="th_quantity" class="text-end">Cant.</th>
-                    <th name="th_priceunit" class="text-end">Precio</th>
-                    <!--<th name="th_discount" t-if="display_discount" class="text-end">
-			<span>% Desc.</span>
-			</th>-->
-                    <th name="th_subtotal" class="text-end">
-                      <span>Total</span>
-                    </th>
-		    <th name="th_taxes" class="text-end">Impuestos</th>
-                  </tr>
-		</thead>
-		<tbody class="sale_tbody">
+	    <t t-set="lines_to_report" t-value="o._get_order_lines_to_report()"/>
+            <t t-set="display_discount" t-value="any(l.discount for l in lines_to_report)"/>
+            <table class="table  border-collapse: collapse; ">
+              <!-- TABLA DE PRODUCTOS -->
+              <thead style="display: table-row-group">
+                <tr>
+		  <th name="th_description" class="text-start">Nro.</th>
+                  <th name="th_description" class="text-start">Detalle</th>
+                  <th name="th_quantity" class="text-end">Cant.</th>
+                  <th name="th_priceunit" class="text-end">Precio</th>
+                  <!--<th name="th_discount" t-if="display_discount" class="text-end">
+                    <span>% Desc.</span>
+                  </th>-->
+                  <th name="th_subtotal" class="text-end">
+                    <span>Total</span>
+                  </th>
+		  <th name="th_taxes" class="text-end">Impuestos</th>
+                </tr>
+              </thead>
+              <tbody class="sale_tbody">
 
-                  <t t-set="current_subtotal" t-value="0"/>
-		  <t t-set="index" t-value="1"/>
-                  <t t-foreach="lines_to_report" t-as="line">
+                <t t-set="current_subtotal" t-value="0"/>
+		<t t-set="index" t-value="1"/>
+                <t t-foreach="lines_to_report" t-as="line">
 
-                    <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
+                  <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
 
-                    <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
-		      
-		      <t t-if="not line.display_type">
-			<td t-esc="index"/>
-			<t t-set="index" t-value="index + 1"/>
-			<td name="td_name"><span t-field="line.name">Bacon Burger</span><br/>
-			<span t-if="line.x_studio_plazo_de_entrega">
-			  <span style="font-style: italic; font-weight: bold; font-size: 11px;">
-			    Entrega:
-			  </span>
-			  <span t-field="line.x_studio_plazo_de_entrega" style="font-style: italic; font-weight: bold; font-size: 11px;"/>
+                  <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+		   
+		    <t t-if="not line.display_type">
+		      <td t-esc="index"/>
+		      <t t-set="index" t-value="index + 1"/>
+                      <td name="td_name"><span t-field="line.name">Bacon Burger</span><br/>
+		      <span t-if="line.x_studio_plazo_de_entrega">
+			<span style="font-style: italic; font-weight: bold; font-size: 11px;">
+			  Entrega:
 			</span>
-			</td>
-			<td name="td_quantity" class="text-end">
-                          <span t-field="line.product_uom_qty">3</span>
-                          <!--<span t-field="line.product_uom">units</span>-->
-                          <span t-if="line.product_packaging_id">
-                            (<span t-field="line.product_packaging_qty" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="line.product_packaging_id"/>)
-                          </span>
-			</td>
-			<td name="td_priceunit" class="text-end">
-                          <span t-field="line.currency_id.symbol"/> - <span t-field="line.price_unit" >3</span>
-			</td>
-			<!--<td t-if="display_discount" class="text-end">
-                            <span t-field="line.discount">-</span>
-			    </td>-->
-			<td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
-                          <span t-field="line.price_subtotal">27.00</span>
-			</td>
-			<t t-set="taxes" t-value="', '.join([(tax.invoice_label or tax.name) for tax in line.tax_id])"/>
-			<td name="td_taxes" t-attf-class="text-end {{ 'text-nowrap' if len(taxes) &lt; 10 else '' }}">
-                          <span t-out="taxes">Tax 15%</span>
-			</td>
-                      </t>
-                      <t t-elif="line.display_type == 'line_section'">
-			<td name="td_section_line" colspan="99">
-                          <span t-field="line.name">A section title</span>
-			</td>
-			<t t-set="current_section" t-value="line"/>
-			<t t-set="current_subtotal" t-value="0"/>
-                      </t>
-                      <t t-elif="line.display_type == 'line_note'">
-			<td name="td_note_line" colspan="99">
-                          <span t-field="line.name">A note, whose content usually applies to the section or product above.</span>
-			</td>
-                      </t>
-                    </tr>
-                    <t t-if="current_section and (line_last or lines_to_report[line_index+1].display_type == 'line_section') and not line.is_downpayment">
-                      <tr class="is-subtotal text-end">
-			<td name="td_section_subtotal" colspan="99">
-                          <strong class="mr16">Subtotal</strong>
-                          <span t-out="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}">31.05</span>
-			</td>
-
-                      </tr>
+			<span t-field="line.x_studio_plazo_de_entrega" style="font-style: italic; font-weight: bold; font-size: 11px;"/>
+		      </span>
+		      </td>
+                      <td name="td_quantity" class="text-end">
+                        <span t-field="line.product_uom_qty">3</span>
+                        <!--<span t-field="line.product_uom">units</span>-->
+                        <span t-if="line.product_packaging_id">
+                          (<span t-field="line.product_packaging_qty" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="line.product_packaging_id"/>)
+                        </span>
+                      </td>
+                      <td name="td_priceunit" class="text-end">
+                        <span t-field="line.currency_id.symbol"/> - <span t-field="line.price_unit" >3</span>
+                      </td>
+                      <!--<td t-if="display_discount" class="text-end">
+                        <span t-field="line.discount">-</span>
+                      </td>-->
+                      <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
+                        <span t-field="line.price_subtotal">27.00</span>
+                      </td>
+		      <t t-set="taxes" t-value="', '.join([(tax.invoice_label or tax.name) for tax in line.tax_id])"/>
+                      <td name="td_taxes" t-attf-class="text-end {{ 'text-nowrap' if len(taxes) &lt; 10 else '' }}">
+                        <span t-out="taxes">Tax 15%</span>
+                      </td>
                     </t>
+                    <t t-elif="line.display_type == 'line_section'">
+                      <td name="td_section_line" colspan="99">
+                        <span t-field="line.name">A section title</span>
+                      </td>
+                      <t t-set="current_section" t-value="line"/>
+                      <t t-set="current_subtotal" t-value="0"/>
+                    </t>
+                    <t t-elif="line.display_type == 'line_note'">
+                      <td name="td_note_line" colspan="99">
+                        <span t-field="line.name">A note, whose content usually applies to the section or product above.</span>
+                      </td>
+                    </t>
+                  </tr>
+                  <t t-if="current_section and (line_last or lines_to_report[line_index+1].display_type == 'line_section') and not line.is_downpayment">
+                    <tr class="is-subtotal text-end">
+                      <td name="td_section_subtotal" colspan="99">
+                        <strong class="mr16">Subtotal</strong>
+                        <span t-out="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}">31.05</span>
+                      </td>
+
+                    </tr>
                   </t>
-		</tbody>
-              </table>
+                </t>
+              </tbody>
+            </table>
 	    </div>
 	    <!-- PIE DEL PRESUPUESTO. -->
             <div class="clearfix" name="so_total_summary">
@@ -234,26 +237,11 @@
           <t t-if="doc.x_studio_12_valor">
             <span t-field="doc.x_studio_12_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
           </t>
-            <t t-if="doc.x_studio_1_valor">días de Fecha Factura.</t></div>
-
-	    <!-- OBS. PARA TODOS LOS PRESUPUESTOS -->
-	    <div t-if="not (doc.sale_order_option_ids and doc.state in ['draft', 'sent'])" class="oe_structure">​<strong><font style="color: rgb(57, 123, 33);"><u>CONDICIONES COMERCIALES</u></font></strong>
-            <br/>
-	    <p> - 
-	    Los precios están cotizados en la moneda que figura en el presupuesto y son por materiales.<br/> - 
-	    Los presupuestos en Dolar, el pago puede realizarse en pesos Argentinos al tipo de cambio Billete Vendedor del
-	    BNA del día del pago. En caso de realizar el pago con cheques diferidos, la factura esta sujeta a la emisión de Nota
-	     de Debito por diferencia de Cotización del Dolar a la fecha de deposito de cheque.<br/> - 
-	     Los cheques para el pago no deben tener la leyenda "NO A LA ORDEN".<br/> - 
-	     Los cables cortados no tienen devolución<br/> - 
-	     Cuando se soliciten conductores a producción y/o corte, los mismos tendrán una tolerancia en la cantidad de
-	     metros de: +/- 5%, facturando el excedente cuando corresponda.</p><p>La aprobación del presupuesto, entiendo como aceptado las condiciones comerciales mencionadas.</p></div>
-	     
-
-	    
+            <t t-if="doc.x_studio_1_valor">días de Fecha Factura.</t></div> 
             <div class="oe_structure"/>
-	  </t>
-	</t>
-      </xpath>
-    </template>
-  </odoo>
+
+       </t>
+      </t>
+    </xpath>
+  </template>
+</odoo>
