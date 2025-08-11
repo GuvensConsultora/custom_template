@@ -197,6 +197,12 @@
                 </div>
               </div>
             </div>
+	    <!-- ANTICIPO FINANCIERO .... -->
+	    <div class="oe_structure">
+              <t t-if="doc.x_studio_anticipo_financiero">
+                <font style="color: rgb(57, 123, 33);"><strong><strong>Forma de pago: </strong></strong></font><span t-field="doc.x_studio_anticipo_financiero">x_studio_anticipo_financiero</span>
+              </t>
+            </div>
 	    <!-- TERMINOS DE PAGO.... -->
 	    <div><strong/><t t-if="doc.x_studio_1_valor">
             <strong><font style="color: rgb(57, 123, 33);">Forma de pago:</font></strong> Cheques a <span t-field="doc.x_studio_1_valor" class="text-o-color-5">x_studio_2_valor</span><span style="font-weight: normal;"/>,
@@ -236,7 +242,12 @@
           </t>
             <t t-if="doc.x_studio_1_valor">días de Fecha Factura.</t></div>
 
-	    <!-- OBS. PARA TODOS LOS PRESUPUESTOS -->
+	    <t t-if="doc.note">
+	      <span t-field="doc.note"></span>
+	    </t>
+
+	    
+	    <!-- OBS. FIJAS PARA TODOS LOS PRESUPUESTOS -->
 	    <div t-if="not (doc.sale_order_option_ids and doc.state in ['draft', 'sent'])" class="oe_structure">​<strong><font style="color: rgb(57, 123, 33);"><u>CONDICIONES COMERCIALES</u></font></strong>
             <br/>
 	    <p> - 

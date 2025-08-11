@@ -1,24 +1,48 @@
 <odoo>
-    <data>
-<!--
-        <template id="listing">
-          <ul>
-            <li t-foreach="objects" t-as="object">
-              <a t-attf-href="#{ root }/objects/#{ object.id }">
-                <t t-esc="object.display_name"/>
-              </a>
-            </li>
-          </ul>
-        </template>
-        <template id="object">
-          <h1><t t-esc="object.display_name"/></h1>
-          <dl>
-            <t t-foreach="object._fields" t-as="field">
-              <dt><t t-esc="field"/></dt>
-              <dd><t t-esc="object[field]"/></dd>
-            </t>
-          </dl>
-        </template>
--->
-    </data>
-</odoo>
+  <data>
+    <!-- Herencia del formulario de Presupuesto de Ventas -->
+    <record id="view_order_form_inherit_anticipo" model="ir.ui.view">
+      <field name="name">sale.order.form.inherit.x_studio_anticipo_financiero</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="priority">20</field>
+      <field name="arch" type="xml">
+	<xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+	  <page string="Valores al Cobro" name="studio_page_9ad_1i7k84pqc">
+	    <group name="studio_group_464_1i7k86ga2">
+              <group name="studio_group_464_left" string="Plazo">
+		<field name="x_studio_anticipo_financiero"/>
+		<field name="x_studio_1_valor"/>
+		<field name="x_studio_2_valor"/>
+		<field name="x_studio_3_valor"/>
+		<field name="x_studio_4_valor" options="{&quot;human_readable&quot;:true,&quot;decimals&quot;:0}"/>
+		<field name="x_studio_5_valor"/>
+		<field name="x_studio_6_valor"/>
+		<field name="x_studio_7_valor"/>
+		<field name="x_studio_8_valor"/>
+		<field name="x_studio_9_valor"/>
+		<field name="x_studio_10_valor"/>
+		<field name="x_studio_11_valor"/>
+		<field name="x_studio_12_valor"/>
+              </group>
+              <group name="studio_group_464_right" string="Importe de cuota">
+		<field name="x_studio_1_cobro" force_save="1" readonly="False"/>
+		<field name="x_studio_2_cobro" force_save="1" readonly="False"/>
+		<field name="x_studio_3_cobro" force_save="1" readonly="False"/>
+		<field name="x_studio_4_cobro" force_save="1" readonly="True"/>
+		<field name="x_studio_5_cobro" force_save="1" readonly="True"/>
+		<field name="x_studio_6_cobro" force_save="1" readonly="True"/>
+		<field name="x_studio_7_cobro"/>
+		<field name="x_studio_8_cobro"/>
+		<field name="x_studio_9_cobro" force_save="1" readonly="True"/>
+		<field name="x_studio_10_cobro" force_save="1" readonly="True"/>
+		<field name="x_studio_11_cobro"/>
+		<field name="x_studio_12_cobro"/>
+              </group>
+	    </group>
+	  </page>
+	</xpath>
+      </field>
+      </record>
+      </data>
+    </odoo>

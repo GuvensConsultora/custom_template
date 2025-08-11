@@ -4,7 +4,18 @@ from odoo import models, fields, api
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
-
+    
+    x_studio_anticipo_financiero = fields.Char(
+         string='Forma de pago diferente a cheques',
+         copy=True,          # "Copiado" ✓
+         tracking=True,      # "Activar el seguimiento de órdenes" ✓ (aparece en el chatter)
+         translate=False,    # "Traducible" ✗
+         index=False,        # "Indexado" ✗
+         help=False,         # "Campo de ayuda" vacío
+         # store=True        # Char ya es almacenado por defecto; no hace falta ponerlo
+         # required=False    # No obligatorio (default)
+         # readonly=False    # No solo lectura (default)
+    )
     x_studio_1_cobro = fields.Float(string='1° Cobro')
     x_studio_1_valor = fields.Integer(string='1° Valor')
     x_studio_2_cobro = fields.Float(string='2° Cobro')
