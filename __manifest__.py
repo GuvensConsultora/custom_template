@@ -1,42 +1,13 @@
-# -*- coding: utf-8 -*-
+# Por qué: módulo stub. El original era de Studio v17 con vistas rotas en v19.
+#          Se vacía el data para evitar errores de validación.
 {
-    'name': "custom_template",
-
-    'summary': "Short (1 phrase/line) summary of the module's purpose",
-
-    'description': """
-Long description of module's purpose
-    """,
-
-    'author': "My Company",
-    'website': "https://www.yourcompany.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base','sale'],
-
-    # always loaded
-    'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
-        'report/report_layout_header.xml',
-        'report/sale_order_report_templates.xml',
-    ],
-    'assets': {
-        'web.report_assets_common': [
-            '/custom_template/static/src/css/markwater.css',
-        ],},
-
-    
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    'name': 'Custom Template (deprecated)',
+    'version': '1.0.0',
+    'category': 'Hidden',
+    'summary': 'Stub - Studio templates removed in Odoo 19 upgrade',
+    'depends': ['base'],
+    'data': [],
+    'installable': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
 }
-
